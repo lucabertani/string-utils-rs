@@ -1,5 +1,6 @@
 use std::ops::RangeBounds;
 
+pub mod number;
 pub mod slice;
 pub mod slice_byte;
 pub mod substring;
@@ -16,6 +17,11 @@ pub trait StringUtils {
 
     fn truncate(&self, len: usize) -> &str;
     fn truncate_byte(&self, len: usize) -> &str;
+
+    fn is_integer(&self) -> bool;
+    fn is_decimal(&self) -> bool;
+    fn is_unsigned(&self) -> bool;
+    fn is_number(&self) -> bool;
 }
 
 impl StringUtils for str {
@@ -38,5 +44,18 @@ impl StringUtils for str {
     }
     fn truncate_byte(&self, len: usize) -> &str {
         truncate_byte::apply(self, len)
+    }
+
+    fn is_integer(&self) -> bool {
+        number::is_integer(self)
+    }
+    fn is_decimal(&self) -> bool {
+        number::is_decimal(self)
+    }
+    fn is_unsigned(&self) -> bool {
+        number::is_unsigned(self)
+    }
+    fn is_number(&self) -> bool {
+        number::is_number(self)
     }
 }
